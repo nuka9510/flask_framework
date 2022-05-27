@@ -88,6 +88,8 @@
   self.fetchall()
   or
   self.fetchone()
+  or
+  self.insert_id()
   ```
 ### db 연결 해제
   ```
