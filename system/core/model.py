@@ -22,7 +22,7 @@ class Model():
     def __connect(self):
         try:
             if database['dbdriver'] == 'mysql':
-                self.con = mysql.connector.connect(**database)
+                self.con = mysql.connector.connect(user=database['user'], password=database['password'], database=database['database'], host=database['host'], port=database['port'], autocommit=database['autocommit'], buffered=database['buffered'])
                 self.cur = self.con.cursor()
             elif database['dbdriver'] == 'pyodbc':
                 self.con = pyodbc.connect(f"DRIVER={{{database['driver']}}};SERVER={database['host']}{',' + database['port'] if database['port'] else ''};DATABASE={database['database']};UID={database['user']};PWD={database['password']}", autocommit=database['autocommit'])
