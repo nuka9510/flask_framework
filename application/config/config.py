@@ -37,9 +37,6 @@ config = {
     'ENCRYPTION_SALT': '[YOURT_SALT_KEY]',
     'UPLOAD_PATH': os.path.join('[UPLOAD_PATH]'),
     'XSS_FILTER': True,
-    'SESSION_NAME': 'session',
-    'SESSION_PATH': os.path.join('application', 'sessions'),
-    'SESSION_EXPIRE': timedelta(days=30)
 }
 
 database = {
