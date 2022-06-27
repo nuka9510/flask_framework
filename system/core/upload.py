@@ -1,5 +1,8 @@
 import os, re
+from typing import TypeVar
 from application.config import config
+
+T = TypeVar('FileStorage')
 
 class Upload():
     def __init__(self) -> None:
@@ -11,7 +14,7 @@ class Upload():
         `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
         '''
 
-    def file_upload(self, file, *allowed_extensions: str, **options) -> dict:
+    def file_upload(self, file: T, *allowed_extensions: str, **options) -> dict:
         '''
         `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
 
