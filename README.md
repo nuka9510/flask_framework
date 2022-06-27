@@ -146,9 +146,6 @@
 
   upload = Upload()
   ```
-  ```
-  upload.file_upload(file[, *allowed_extensions][, **options])
-  ```
 ### 파일 업로드
   ```
   upload.file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])
