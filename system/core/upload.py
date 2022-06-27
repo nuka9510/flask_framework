@@ -2,22 +2,24 @@ import os, re
 from application.config import config
 
 class Upload():
-    def __init__(self):
+    def __init__(self) -> None:
         '''
+        `Upload()`
+
         method
 
-        file_upload(file: fileobj[, *allowed_extensions: str][, **options])
+        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
         '''
 
-    def file_upload(self, file, *allowed_extensions, **options):
+    def file_upload(self, file, *allowed_extensions: str, **options) -> dict:
         '''
-        file_upload(file[, *allowed_extensions: str][, **options])
+        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
 
-        *allowed_extensions['jpg', 'gif', 'png', ...]
+        `*allowed_extensions['jpg', 'gif', 'png', ...]`
 
-        **options[upload_path: str, file_name: str]
+        `**options[upload_path: str, file_name: str]`
 
-        name으로 온 file을 upload한다.
+        file을 upload한다.
         '''
         flag = False
 

@@ -2,21 +2,21 @@ from passlib.hash import bcrypt, sha256_crypt, sha512_crypt, md5_crypt, sha1_cry
 from application.config import config
 
 class Encryption():
-    def __init__(self, schema='sha256'):
+    def __init__(self, schema: str = 'sha256') -> None:
         '''
-        schema: str
+        `Encryption(schema: str = 'sha256')`
 
         method
-        
-        crypt(word: str[, **options])
+
+        `crypt(word: str[, **options])`
         '''
         self.schema = schema
 
-    def crypt(self, word, **options):
+    def crypt(self, word: str, **options) -> str:
         '''
-        crypt(word: str[, **options])
+        `crypt(word: str[, **options])`
 
-        **options[salt: str, rounds: int, ident: str, truncate_error: bool, relaxed: bool, salt_size: int]
+        `**options[salt: str, rounds: int, ident: str, truncate_error: bool, relaxed: bool, salt_size: int]`
 
         word를 암호화 한다.
         '''
