@@ -36,14 +36,16 @@ class Input():
                 result = request.args.getlist(name, type)
 
                 for i in range(len(result)):
-                    if type == str \
-                        or not type:
+                    if (type == str \
+                        or not type) \
+                        and result[i]:
                         result[i] = html.escape(result[i]) if config['XSS_FILTER'] else result[i]
             elif action == 'store':
                 result = request.args.get(name, default, type)
 
-                if type == str \
-                    or not type:
+                if (type == str \
+                    or not type) \
+                    and result:
                     result = html.escape(result) if config['XSS_FILTER'] else result
         else:
             result = request.args.to_dict()
@@ -63,14 +65,16 @@ class Input():
                 result = request.form.getlist(name, type)
 
                 for i in range(len(result)):
-                    if type == str \
-                        or not type:
+                    if (type == str \
+                        or not type) \
+                        and result[i]:
                         result[i] = html.escape(result[i]) if config['XSS_FILTER'] else result[i]
             elif action == 'store':
                 result = request.form.get(name, default, type)
 
-                if type == str \
-                    or not type:
+                if (type == str \
+                    or not type) \
+                    and result:
                     result = html.escape(result) if config['XSS_FILTER'] else result
         else:
             result = request.form.to_dict()
