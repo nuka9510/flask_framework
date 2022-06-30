@@ -12,7 +12,7 @@ class Upload():
         `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
         '''
 
-    def file_upload(self, file: "FileStorage", *allowed_extensions: str, **options) -> dict:
+    def file_upload(self, file: FileStorage, *allowed_extensions: str, **options) -> dict:
         '''
         `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
 
