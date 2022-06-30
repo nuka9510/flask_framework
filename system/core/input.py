@@ -1,5 +1,5 @@
 import html
-from typing import Union, Type, Any
+from typing import Optional, Type, Any
 from flask import request
 from application.config import config
 
@@ -23,7 +23,7 @@ class Input():
         `get_json()`
         '''
 
-    def get(self, name: Union[str, None] = None, default: Union[Any, None] = None, type: Union[Type[Any], None] = None, action: str = 'store'):
+    def get(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store'):
         '''
         `get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
         
@@ -52,7 +52,7 @@ class Input():
 
         return result
 
-    def post(self, name: Union[str, None] = None, default: Union[Any, None] = None, type: Union[Type[Any], None] = None, action: str = 'store'):
+    def post(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store'):
         '''
         `post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
         
@@ -81,7 +81,7 @@ class Input():
 
         return result
 
-    def file(self, name: Union[str, None] = None, action: str = 'store'):
+    def file(self, name: Optional[str] = None, action: str = 'store'):
         '''
         `file(name: str | None = None[, action: str = 'store'])`
         
@@ -99,7 +99,7 @@ class Input():
         
         return result
 
-    def header(self, name: Union[str, None] = None):
+    def header(self, name: Optional[str] = None):
         '''
         `header(name: str | None = None)`
         
