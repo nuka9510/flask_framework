@@ -1,22 +1,21 @@
 import os, re
-from typing import TypeVar
+from werkzeug.datastructures import FileStorage
+from typing import Type
 from application.config import config
 
-T = TypeVar('werkzeug.datastructures.FileStorage')
-
 class Upload():
-    def __init__(self) -> None:
+    def __init__(self):
         '''
         `Upload()`
 
         method
 
-        `file_upload(file: werkzeug.datastructures.FileStorage[, *allowed_extensions: str[, **options]])`
+        `file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])`
         '''
 
-    def file_upload(self, file: T, *allowed_extensions: str, **options) -> dict:
+    def file_upload(self, file: Type[FileStorage], *allowed_extensions: str, **options) -> dict:
         '''
-        `file_upload(file: werkzeug.datastructures.FileStorage[, *allowed_extensions: str[, **options]])`
+        `file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])`
 
         `*allowed_extensions['jpg', 'gif', 'png', ...]`
 

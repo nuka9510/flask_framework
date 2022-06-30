@@ -122,10 +122,10 @@
   input = Input()
   ```
   ```
-  input.get(name: str[, default: Any | None = None[, action: str = 'store']])
+  input.get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])
   ```
   ```
-  input.post(name: str[, default: Any | None = None[, action: str = 'store']])
+  input.post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])
   ```
   ```
   input.file(name: str | None = None[, action: str='store'])
@@ -148,7 +148,7 @@
   ```
 ### 파일 업로드
   ```
-  upload.file_upload(file: werkzeug.datastructures.FileStorage[, *allowed_extensions: str[, **options]])
+  upload.file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])
   ```
   * return
   ```

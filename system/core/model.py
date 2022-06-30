@@ -4,7 +4,7 @@ from application.config import database
 from system import logger
 
 class Model():
-    def __init__(self) -> None:
+    def __init__(self):
         '''
         `Model()`
 
