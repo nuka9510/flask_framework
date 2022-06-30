@@ -1,6 +1,5 @@
 import os, re
 from werkzeug.datastructures import FileStorage
-from typing import Type
 from application.config import config
 
 class Upload():
@@ -10,12 +9,12 @@ class Upload():
 
         method
 
-        `file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])`
+        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
         '''
 
-    def file_upload(self, file: Type[FileStorage], *allowed_extensions: str, **options) -> dict:
+    def file_upload(self, file: "FileStorage", *allowed_extensions: str, **options) -> dict:
         '''
-        `file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])`
+        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
 
         `*allowed_extensions['jpg', 'gif', 'png', ...]`
 

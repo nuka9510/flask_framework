@@ -148,7 +148,7 @@
   ```
 ### 파일 업로드
   ```
-  upload.file_upload(file: Type[FileStorage][, *allowed_extensions: str[, **options]])
+  upload.file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])
   ```
   * return
   ```
