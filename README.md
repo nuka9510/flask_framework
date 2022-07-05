@@ -122,10 +122,10 @@
   input = Input()
   ```
   ```
-  input.get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])
+  input.get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])
   ```
   ```
-  input.post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])
+  input.post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])
   ```
   ```
   input.file(name: str | None = None[, action: str='store'])

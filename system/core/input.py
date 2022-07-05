@@ -1,5 +1,5 @@
 import html
-from typing import Optional, Type, Any
+from typing import Optional, Union, Type, Any
 from flask import request
 from application.config import config
 
@@ -10,9 +10,9 @@ class Input():
 
         method
 
-        `get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
+        `get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])`
 
-        `post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
+        `post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])`
 
         `file(name: str | None = None[, action: str='store'])`
 
@@ -23,9 +23,23 @@ class Input():
         `get_json()`
         '''
 
-    def get(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store'):
+    def _convert(self, arg: Any, default: Optional[Any], type: Optional[Type[Any]], literal: Optional[Union[list, tuple, set]]):
         '''
-        `get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
+        `_convert(arg: Any, default: Any | None, type: type | None, literal: list | tuple | set | None)`
+        '''
+        if (type == str or not type) \
+            and arg:
+            arg = html.escape(arg) if config['XSS_FILTER'] else arg
+
+        if literal \
+            and arg not in literal:
+            arg = default
+
+        return arg
+
+    def get(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store', literal: Optional[Union[list, tuple, set]] = None):
+        '''
+        `get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])`
         
         get으로 받아온 데이터를 return 한다.
         '''
@@ -36,25 +50,18 @@ class Input():
                 result = request.args.getlist(name, type)
 
                 for i in range(len(result)):
-                    if (type == str \
-                        or not type) \
-                        and result[i]:
-                        result[i] = html.escape(result[i]) if config['XSS_FILTER'] else result[i]
+                    result[i] = self._convert(result[i], default, type, literal)
             elif action == 'store':
                 result = request.args.get(name, default, type)
-
-                if (type == str \
-                    or not type) \
-                    and result:
-                    result = html.escape(result) if config['XSS_FILTER'] else result
+                result = self._convert(result, default, type, literal)
         else:
             result = request.args.to_dict()
 
         return result
 
-    def post(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store'):
+    def post(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store', literal: Optional[Union[list, tuple, set]] = None):
         '''
-        `post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store']]])`
+        `post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])`
         
         post로 받아온 데이터를 return 한다.
         '''
@@ -65,17 +72,10 @@ class Input():
                 result = request.form.getlist(name, type)
 
                 for i in range(len(result)):
-                    if (type == str \
-                        or not type) \
-                        and result[i]:
-                        result[i] = html.escape(result[i]) if config['XSS_FILTER'] else result[i]
+                    result[i] = self._convert(result[i], default, type, literal)
             elif action == 'store':
                 result = request.form.get(name, default, type)
-
-                if (type == str \
-                    or not type) \
-                    and result:
-                    result = html.escape(result) if config['XSS_FILTER'] else result
+                result = self._convert(result, default, type, literal)
         else:
             result = request.form.to_dict()
 

@@ -70,7 +70,7 @@ class Model():
             else:
                 self.cur.execute(sql, data)
 
-    def fetchall(self) -> list:
+    def fetchall(self) -> list[dict]:
         '''
         `fetchall()`
 
