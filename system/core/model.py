@@ -112,8 +112,11 @@ class Model():
         if database['dbdriver'] == 'mysql':
             column_names = self.cur.column_names
 
-            for val in self.cur.fetchone():
-                row.append(self.__json_convert(val))
+            try:
+                for val in self.cur.fetchone():
+                    row.append(self.__json_convert(val))
+            except TypeError:
+                ''''''
         elif database['dbdriver'] == 'pyodbc':
             fetchone = self.cur.fetchone()
 
