@@ -27,9 +27,12 @@ class Input():
         '''
         `_convert(arg: Any, default: Any | None, type: type | None, literal: list | tuple | set | None)`
         '''
-        if (type == str or not type) \
-            and arg:
-            arg = html.escape(arg) if config['XSS_FILTER'] else arg
+        if (type == str or not type):
+            if arg:
+                arg = html.escape(arg) if config['XSS_FILTER'] else arg
+
+            if not arg:
+                arg = None
 
         if literal \
             and arg not in literal:
