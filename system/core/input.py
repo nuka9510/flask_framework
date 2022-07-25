@@ -36,6 +36,9 @@ class Input():
 
         if literal \
             and arg not in literal:
+            arg = None
+
+        if not arg:
             arg = default
 
         return arg
