@@ -38,7 +38,7 @@ class Input():
             and arg not in literal:
             arg = None
 
-        if not arg:
+        if arg == None:
             arg = default
 
         return arg
