@@ -51,24 +51,24 @@ class Model():
         else:
             return value
 
-    def execute(self, sql: str, *data: Union[str, int]) -> None:
+    def execute(self, sql: str, *data: Union[str, int]) -> bool:
         '''
         `execute(sql: str[, *data: str | int])`
 
         sql문을 실행시킨다.
         '''
+        result = True
+
         try:
             if not data:
                 self.cur.execute(sql)
             else:
                 self.cur.execute(sql, data)
         except (mysql.connector.Error, pyodbc.Error) as err:
-            self.__connect()
+            logger.error(err)
+            result = False
 
-            if not data:
-                self.cur.execute(sql)
-            else:
-                self.cur.execute(sql, data)
+        return result
 
     def fetchall(self) -> list[dict]:
         '''
