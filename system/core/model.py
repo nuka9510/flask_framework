@@ -20,7 +20,6 @@ class Model():
         
         `close()`
         '''
-        self.__connect()
 
     def __connect(self) -> None:
         '''
@@ -60,6 +59,8 @@ class Model():
         result = True
 
         try:
+            self.__connect()
+
             if not data:
                 self.cur.execute(sql)
             else:
