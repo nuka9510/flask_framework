@@ -30,12 +30,14 @@ class Model():
         try:
             if database['dbdriver'] == 'mysql':
                 self.con = mysql.connector.connect(user=database['user'], password=database['password'], database=database['database'], host=database['host'], port=database['port'], autocommit=database['autocommit'], buffered=database['buffered'])
-                self.cur = self.con.cursor()
             elif database['dbdriver'] == 'pyodbc':
                 self.con = pyodbc.connect(f"DRIVER={{{database['driver']}}};SERVER={database['host']}{',' + database['port'] if database['port'] else ''};DATABASE={database['database']};UID={database['user']};PWD={database['password']}", autocommit=database['autocommit'])
-                self.cur = self.con.cursor()
+
+            self.cur = self.con.cursor()
+            self.__connected = True
         except (mysql.connector.Error, pyodbc.Error) as err:
             logger.error(err)
+            self.__connected = False
 
     def __json_convert(self, value: Union[datetime.date, decimal.Decimal]) -> str:
         '''
@@ -59,8 +61,12 @@ class Model():
         result = True
 
         try:
+            if not self.__connected:
+                self.__connect()
+        except AttributeError:
             self.__connect()
 
+        try:
             if not data:
                 self.cur.execute(sql)
             else:
@@ -150,3 +156,4 @@ class Model():
         '''
         self.cur.close()
         self.con.close()
+        self.__connected = False
