@@ -72,6 +72,11 @@ class Model():
             else:
                 self.cur.execute(sql, data)
         except (mysql.connector.Error, pyodbc.Error) as err:
+            logger.error(sql)
+
+            if data:
+                logger.error(data)
+
             logger.error(err)
             result = False
 
