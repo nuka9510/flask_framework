@@ -49,7 +49,7 @@ class Model():
         '''
         if isinstance(value, datetime.date):
             return value.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(value, decimal.Decimal)\
+        elif isinstance(value, decimal.Decimal) \
             and value == 0:
             return 0
         else:
