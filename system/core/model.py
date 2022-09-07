@@ -39,16 +39,19 @@ class Model():
             logger.error(err)
             self.__connected = False
 
-    def __json_convert(self, value: Union[datetime.date, decimal.Decimal]) -> str:
+    def __convert(self, value: Union[datetime.date, decimal.Decimal]) -> str:
         '''
-        `__json_convert(self, value: datetime.date | decimal.Decimal)`
+        `__convert(self, value: datetime.date | decimal.Decimal)`
 
-        json으로 변환이 가능 하도록 날짜와 실수 데이터를 문자열로 변환한다.
+        날짜 데이터를 '%Y-%m-%d %H:%M:%S' 형태의 문자열로 변환한다.
+
+        실수 0은 정수로 변환한다.
         '''
         if isinstance(value, datetime.date):
             return value.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(value, decimal.Decimal):
-            return re.sub('\.$', '', re.sub('0+$', '', str(value)))
+        elif isinstance(value, decimal.Decimal)\
+            and value == 0:
+            return 0
         else:
             return value
 
@@ -96,7 +99,7 @@ class Model():
             for val in iter(self.cur.fetchall()):
                 row = list()
                 for i in val:
-                    row.append(self.__json_convert(i))
+                    row.append(self.__convert(i))
 
                 result.append(dict(zip(column_names, row)))
         elif database['dbdriver'] == 'pyodbc':
@@ -106,7 +109,7 @@ class Model():
 
                 for j, k in enumerate(i.cursor_description):
                     column_names.append(k[0])
-                    row.append(self.__json_convert(i[j]))
+                    row.append(self.__convert(i[j]))
 
                 result.append(dict(zip(column_names, row)))
 
@@ -126,7 +129,7 @@ class Model():
 
             try:
                 for val in self.cur.fetchone():
-                    row.append(self.__json_convert(val))
+                    row.append(self.__convert(val))
             except TypeError:
                 ''''''
         elif database['dbdriver'] == 'pyodbc':
@@ -135,7 +138,7 @@ class Model():
             try:
                 for i, j in enumerate(fetchone.cursor_description):
                     column_names.append(j[0])
-                    row.append(self.__json_convert(fetchone[i]))
+                    row.append(self.__convert(fetchone[i]))
             except AttributeError:
                 ''''''
 
