@@ -1,4 +1,4 @@
-import mysql.connector, pyodbc, decimal, datetime, re
+import mysql.connector, pyodbc, decimal, datetime
 from typing import Union
 from application.config import database
 from system import logger
