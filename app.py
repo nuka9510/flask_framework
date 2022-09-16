@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from system.core.Converter import *
 from application.config import app as config, log
