@@ -1,5 +1,5 @@
 import mysql.connector, pyodbc, decimal, datetime
-from typing import Union
+from typing import Any, Union
 from application.config import database
 from system import logger
 
@@ -8,23 +8,17 @@ class Model():
         '''
         `Model()`
 
-        method
-
-        `execute(sql: str[, *data: str | int])`
-
-        `fetchall()`
-        
-        `fetchone()`
-
-        `insert_id()`
-        
-        `close()`
+        ```
+        @method execute(sql: str, *data: str | int) -> bool
+        @method fetchall() -> list[dict]
+        @method fetchone() -> dict
+        @method insert_id() -> Any
+        @method close()
+        ```
         '''
 
-    def __connect(self) -> None:
+    def __connect(self):
         '''
-        `__connect()`
-
         database와 연결한다.
         '''
         try:
@@ -39,13 +33,15 @@ class Model():
             logger.error(err)
             self.__connected = False
 
-    def __convert(self, value: Union[datetime.date, decimal.Decimal]) -> str:
+    def __convert(self, value: Any) -> Any:
         '''
-        `__convert(self, value: datetime.date | decimal.Decimal)`
-
         날짜 데이터를 '%Y-%m-%d %H:%M:%S' 형태의 문자열로 변환한다.
 
         실수 0은 정수로 변환한다.
+        ```
+        @param {Any} value - 변환할 데이터
+        @returns 변환 된 데이터
+        ```
         '''
         if isinstance(value, datetime.date):
             return value.strftime('%Y-%m-%d %H:%M:%S')
@@ -55,11 +51,14 @@ class Model():
         else:
             return value
 
-    def execute(self, sql: str, *data: Union[str, int]) -> bool:
+    def execute(self, sql: str, *data: Union[str, int, float]) -> bool:
         '''
-        `execute(sql: str[, *data: str | int])`
-
         sql문을 실행시킨다.
+        ```
+        @param {str} sql - 실행할 sql문
+        @param {str | int | float} *data - sql문에 들어갈 PreparedStatement 데이터
+        @returns 실행 성공 여부 
+        ```
         '''
         result = True
 
@@ -87,9 +86,10 @@ class Model():
 
     def fetchall(self) -> list[dict]:
         '''
-        `fetchall()`
-
         select된 모든 row를 불러온다.
+        ```
+        @returns select된 결과 목록
+        ```
         '''
         result = list()
 
@@ -117,9 +117,10 @@ class Model():
 
     def fetchone(self) -> dict:
         '''
-        `fetchone()`
-        
         select된 row중 가장 첫 번째 row를 불러온다.
+        ```
+        @returns select된 첫 번째 row
+        ```
         '''
         column_names = list()
         row = list()
@@ -144,11 +145,12 @@ class Model():
 
         return dict(zip(column_names, row))
 
-    def insert_id(self) -> str:
+    def insert_id(self) -> Any:
         '''
-        `insert_id()`
-
         가장 마지막으로 INSERT된 PRIMARY KEY 값을 불러온다.
+        ```
+        @returns 마지막으로 INSERT된 PRIMARY KEY
+        ```
         '''
         if database['dbdriver'] == 'mysql':
             return self.cur.lastrowid
@@ -156,10 +158,8 @@ class Model():
             self.execute(f"SELECT @@IDENTITY AS id")
             return self.fetchone()['id']
 
-    def close(self) -> None:
+    def close(self):
         '''
-        `close()`
-
         database 연결을 끊는다.
         '''
         self.cur.close()

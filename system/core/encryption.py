@@ -1,3 +1,4 @@
+from typing import Union
 from passlib.hash import bcrypt, sha256_crypt, sha512_crypt, md5_crypt, sha1_crypt
 from application.config import config
 
@@ -5,20 +6,29 @@ class Encryption():
     def __init__(self, schema: str = 'sha256'):
         '''
         `Encryption(schema: str = 'sha256')`
+        ```
+        @param {str} [schema='sha256'] - 암호화 종류
 
-        method
-
-        `crypt(word: str[, **options])`
+        @method crypt(word: str, **options) -> str
+        ```
         '''
         self.schema = schema
 
-    def crypt(self, word: str, **options) -> str:
+    def crypt(self, word: str, **options: Union[str, int, bool]) -> str:
         '''
-        `crypt(word: str[, **options])`
-
-        `**options[salt: str, rounds: int, ident: str, truncate_error: bool, relaxed: bool, salt_size: int]`
-
         word를 암호화 한다.
+        ```
+        @param {str} word - 암호화 할 문자열
+        @param {str | int | bool} **options - 암호화 옵션
+        @param {str} schema - options: 암호화 종류
+        @param {str} [salt=config['ENCRYPTION_SALT']] - options: salt 문자열
+        @param {int} rounds - options
+        @param {str} ident - options
+        @param {bool} truncate_error - options
+        @param {bool} relaxed - options
+        @param {int} salt_size - options
+        @returns 암화화 된 문자열
+        ```
         '''
         try:
             self.schema = options['schema']

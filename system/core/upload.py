@@ -7,20 +7,32 @@ class Upload():
         '''
         `Upload()`
 
-        method
-
-        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
+        ```
+        @method file_upload(file: FileStorage, *allowed_extensions: str, **options) -> dict
+        ```
         '''
 
     def file_upload(self, file: FileStorage, *allowed_extensions: str, **options) -> dict:
         '''
-        `file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])`
-
-        `*allowed_extensions['jpg', 'gif', 'png', ...]`
-
-        `**options[upload_path: str, file_name: str]`
-
         file을 upload한다.
+        ```
+        @param {FileStorage} file - upload할 파일
+        @param {str} *allowed_extensions - 허용할 확장자 'jpg', 'gif', 'png', ...
+        @param {str} **options - upload 옵션
+        @param {str} upload_path - options upload 경로
+        @param {str} file_name - options 파일 명
+        @returns 결과 값
+        {
+            'result': bool, upload 성공 여부
+            'file_name': str, upload된 파일 명
+            'file_size': int, 파일 용량
+            'file_path': str, upload 경로
+            'full_path': str, 파일 명을 포함한 upload 경로
+            'raw_name': str, 확장자를 제외한 upload된 파일 명
+            'orig_name': str, 파일 원본 명
+            'file_ext': srt, 확장자
+        }
+        ```
         '''
         flag = False
 

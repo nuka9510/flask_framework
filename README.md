@@ -78,7 +78,7 @@
   ```
 ### query 실행
   ```
-  self.execute(sql: str[, *data: str | int])
+  self.execute(sql: str, *data: str | int)
   ```
 ### query 결과
   ```
@@ -122,13 +122,13 @@
   input = Input()
   ```
   ```
-  input.get(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])
+  input.get(name: str | None = None, default: Any | None = None, type: type | None = None, action: str = 'store', literal: list | tuple | set | None = None)
   ```
   ```
-  input.post(name: str | None = None[, default: Any | None = None[, type: type | None = None[, action: str = 'store'[, literal: list | tuple | set | None = None]]]])
+  input.post(name: str | None = None, default: Any | None = None, type: type | None = None, action: str = 'store', literal: list | tuple | set | None = None)
   ```
   ```
-  input.file(name: str | None = None[, action: str='store'])
+  input.file(name: str | None = None, action: str='store')
   ```
   ```
   input.header(name: str | None = None)
@@ -148,7 +148,7 @@
   ```
 ### 파일 업로드
   ```
-  upload.file_upload(file: FileStorage[, *allowed_extensions: str[, **options]])
+  upload.file_upload(file: FileStorage, *allowed_extensions: str, **options)
   ```
   * return
   ```
@@ -171,7 +171,7 @@
   encryption = Encryption(schema: str = 'sha256')
   ```
   ```
-  encryption.crypt(word: str[, **options])
+  encryption.crypt(word: str, **options)
   ```
 
 ## Logging
