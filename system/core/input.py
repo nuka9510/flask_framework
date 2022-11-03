@@ -40,7 +40,7 @@ class Input():
             and arg not in literal:
             arg = None
 
-        if arg == None:
+        if arg is None:
             arg = default
 
         return arg
