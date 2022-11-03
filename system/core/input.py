@@ -69,7 +69,7 @@ class Input():
                 result = request.args.get(name, default, type)
                 result = self._convert(result, default, type, literal)
         else:
-            result = request.args.to_dict()
+            result = request.args.to_dict(False)
 
         return result
 
@@ -97,7 +97,7 @@ class Input():
                 result = request.form.get(name, default, type)
                 result = self._convert(result, default, type, literal)
         else:
-            result = request.form.to_dict()
+            result = request.form.to_dict(False)
 
         return result
 
@@ -118,7 +118,7 @@ class Input():
             else:
                 result = request.files.get(name)
         else:
-            result = request.files.to_dict()
+            result = request.files.to_dict(False)
         
         return result
 
