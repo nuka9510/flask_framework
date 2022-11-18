@@ -43,7 +43,7 @@ class Model():
         ```
         Args:
             sql (str): 실행할 sql문
-            *data (Union[str, int, float]): sql문에 들어갈 PreparedStatement 데이터
+            *data (Union[str, int, float], optional): sql문에 들어갈 PreparedStatement 데이터
 
         Returns:
             bool: 실행 성공 여부

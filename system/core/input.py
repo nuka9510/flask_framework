@@ -9,9 +9,9 @@ class Input():
         ```
         Args:
             arg (Any): 처리할 데이터
-            default (Optional[Any], optional): default 값
-            type (Optional[Type[Any]], optional): 데이터의 type
-            literal (Optional[Union[list, tuple, set]], optional): 확인할 literal 값
+            default (Optional[Any]): default 값
+            type (Optional[Type[Any]]): 데이터의 type
+            literal (Optional[Union[list, tuple, set]]): 확인할 literal 값
 
         Returns:
             Any: 처리된 데이터
