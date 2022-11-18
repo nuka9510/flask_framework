@@ -1,35 +1,36 @@
-from typing import Union
+from typing import Union, Optional
 from passlib.hash import bcrypt, sha256_crypt, sha512_crypt, md5_crypt, sha1_crypt
 from application.config import config
 
 class Encryption():
-    def __init__(self, schema: str = 'sha256'):
-        '''
-        `Encryption(schema: str = 'sha256')`
+    def __init__(self, schema: Optional[str] = 'sha256'):
+        '''암호화 Class
         ```
-        @param {str} [schema='sha256'] - 암호화 종류
+        Example:
+            Encryption(schema='sha256')
 
-        @method crypt(word: str, **options) -> str
-        ```
-        '''
+        Args:
+            schema (Optional[str]): 암호화 종류('bcrypt', 'sha256', 'sha512', 'md5', 'sha1'). Defaults to 'sha256'.
+        ```'''
         self.schema = schema
 
     def crypt(self, word: str, **options: Union[str, int, bool]) -> str:
-        '''
-        word를 암호화 한다.
+        '''word를 암호화 한다.
         ```
-        @param {str} word - 암호화 할 문자열
-        @param {str | int | bool} **options - 암호화 옵션
-        @param {str} schema - options: 암호화 종류
-        @param {str} [salt=config['ENCRYPTION_SALT']] - options: salt 문자열
-        @param {int} rounds - options
-        @param {str} ident - options
-        @param {bool} truncate_error - options
-        @param {bool} relaxed - options
-        @param {int} salt_size - options
-        @returns 암화화 된 문자열
-        ```
-        '''
+        Args:
+            word (str): 암호화 할 문자열
+            **options (Union[str, int, bool]): 암호화 옵션
+                schema (str): 암호화 종류. Defaults to self.schema.
+                salt (Optional[str]): salt 문자열. Defaults to config['ENCRYPTION_SALT'].
+                rounds (Optional[int]): rounds 수('md5'는 예외)
+                ident (Optional[str]): 'bcrypt'에서만 사용. Defaults to '2b'.
+                truncate_error (Optional[bool]): 'bcrypt'에서만 사용. Defaults to False.
+                relaxed (Optional[bool]): Defaults to False.
+                salt_size (int): ('md5', 'sha1')에서만 사용.Defaults to 8.
+
+        Returns:
+            str: 암화화 된 문자열
+        ```'''
         try:
             self.schema = options['schema']
         except KeyError:

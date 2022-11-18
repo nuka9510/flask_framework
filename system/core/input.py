@@ -4,31 +4,18 @@ from flask import request
 from application.config import config
 
 class Input():
-    def __init__(self):
-        '''
-        `Input()`
-
-        ```
-        @method get(name: str | None = None, default: Any | None = None, type: type | None = None, action: str = 'store', literal: list | tuple | set | None = None) -> (List | Any | Dict[str, str] | None)
-        @method post(name: str | None = None, default: Any | None = None, type: type | None = None, action: str = 'store', literal: list | tuple | set | None = None) -> (List | Any | Dict[str, str] | None)
-        @method file(name: str | None = None, action: str='store') -> (List[FileStorage] | FileStorage | Dict[str, FileStorage] | None)
-        @method header(name: str | None = None) ->  -> (str | Headers | None)
-        @method query_string() -> str
-        @method get_json() -> (Any | None)
-        ```
-        '''
-
     def _convert(self, arg: Any, default: Optional[Any], type: Optional[Type[Any]], literal: Optional[Union[list, tuple, set]]):
-        '''
-        XSS_FILTER 적용, literal 확인 및 defualt 값 셋팅
+        '''XSS_FILTER 적용, literal 확인 및 defualt 값 셋팅
         ```
-        @param {Any} arg - 처리할 데이터
-        @param {Any | None} default - default 값
-        @param {type} type - 데이터의 type
-        @param {list | tuple | set | None} literal - 확인할 literal 값
-        @returns
-        ```
-        '''
+        Args:
+            arg (Any): 처리할 데이터
+            default (Optional[Any]): default 값
+            type (Optional[Type[Any]]): 데이터의 type
+            literal (Optional[Union[list, tuple, set]]): 확인할 literal 값
+
+        Returns:
+            Any: 처리된 데이터
+        ```'''
         if (type == str or not type):
             if arg:
                 arg = html.escape(arg) if config['XSS_FILTER'] else arg
@@ -45,18 +32,19 @@ class Input():
 
         return arg
 
-    def get(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store', literal: Optional[Union[list, tuple, set]] = None):
-        '''
-        get으로 받아온 데이터를 return 한다.
+    def get(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: Optional[str] = 'store', literal: Optional[Union[list, tuple, set]] = None):
+        '''get으로 받아온 데이터를 return 한다.
         ```
-        @param {str | None} [name=None] - 받아온 데이터의 name
-        @param {Any | None} [default=None] - 데이터가 없을 시 넣어 줄 default 값
-        @param {type | None} [type=None] - 데이터의 type
-        @param {str} [action='store'] - 데이터를 받아오는 방식에 대한 값
-        @param {list | tuple | set | None} [literal=None] - 받아야할 데이터에 대한 literal
-        @returns
-        ```
-        '''
+        Args:
+            name (Optional[str]): 받아온 데이터의 name. Defaults to None.
+            default (Optional[Any]): 데이터가 없을 시 넣어 줄 default 값. Defaults to None.
+            type (Optional[Type[Any]]): 데이터의 type. Defaults to None.
+            action (Optional[str]): 데이터를 받아오는 방식에 대한 값('store', 'append'). Defaults to 'store'.
+            literal (Optional[Union[list, tuple, set]]): 받아야할 데이터에 대한 literal. Defaults to None.
+
+        Returns:
+            Union[list, Any, dict[str, list[str]], None]: 데이터
+        ```'''
         result = None
 
         if name:
@@ -73,18 +61,19 @@ class Input():
 
         return result
 
-    def post(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: str = 'store', literal: Optional[Union[list, tuple, set]] = None):
-        '''
-        post로 받아온 데이터를 return 한다.
+    def post(self, name: Optional[str] = None, default: Optional[Any] = None, type: Optional[Type[Any]] = None, action: Optional[str] = 'store', literal: Optional[Union[list, tuple, set]] = None):
+        '''post로 받아온 데이터를 return 한다.
         ```
-        @param {str | None} [name=None] - 받아온 데이터의 name
-        @param {Any | None} [default=None] - 데이터가 없을 시 넣어 줄 default 값
-        @param {type | None} [type=None] - 데이터의 type
-        @param {str} [action='store'] - 데이터를 받아오는 방식에 대한 값
-        @param {list | tuple | set | None} [literal=None] - 받아야할 데이터에 대한 literal
-        @returns
-        ```
-        '''
+        Args:
+            name (Optional[str]): 받아온 데이터의 name. Defaults to None.
+            default (Optional[Any]): 데이터가 없을 시 넣어 줄 default 값. Defaults to None.
+            type (Optional[Type[Any]]): 데이터의 type. Defaults to None.
+            action (Optional[str]): 데이터를 받아오는 방식에 대한 값('store', 'append'). Defaults to 'store'.
+            literal (Optional[Union[list, tuple, set]]): 받아야할 데이터에 대한 literal. Defaults to None.
+
+        Returns:
+            Union[list, Any, dict[str, list[str]], None]: 데이터
+        ```'''
         result = None
 
         if name:
@@ -101,15 +90,16 @@ class Input():
 
         return result
 
-    def file(self, name: Optional[str] = None, action: str = 'store'):
-        '''
-        multipart/form-data로 받아온 데이터를 return 한다.
+    def file(self, name: Optional[str] = None, action: Optional[str] = 'store'):
+        '''multipart/form-data로 받아온 file 데이터를 return 한다.
         ```
-        @param {str | None} [name=None] - 받아온 데이터의 name
-        @param {str} [action='store'] - 데이터를 받아오는 방식에 대한 값
-        @returns
-        ```
-        '''
+        Args:
+            name (Optional[str], optional): 받아온 데이터의 name. Defaults to None.
+            action (Optional[str]): 데이터를 받아오는 방식에 대한 값('store', 'append'). Defaults to 'store'.
+
+        Returns:
+            Union[List[FileStorage], FileStorage, Dict[str, list[FileStorage]], None]: file 데이터
+        ```'''
         result = None
         
         if name:
@@ -123,13 +113,14 @@ class Input():
         return result
 
     def header(self, name: Optional[str] = None):
-        '''
-        header로 받아온 데이터를 return 한다.
+        '''header로 받아온 데이터를 return 한다.
         ```
-        @param {str | None} [name=None] - 받아온 데이터의 name
-        @returns
-        ```
-        '''
+        Args:
+            name (Optional[str]): 받아온 데이터의 name. Defaults to None.
+
+        Returns:
+            Union[str, Headers, None]: header 데이터
+        ```'''
         result = None
 
         if name:
@@ -140,19 +131,17 @@ class Input():
         return result
 
     def query_string(self) -> str:
-        '''
-        query string을 return 한다.
+        '''query string을 return 한다.
         ```
-        @returns
-        ```
-        '''
+        Returns:
+            str: query string
+        ```'''
         return request.query_string.decode()
 
     def get_json(self):
-        '''
-        applcation/json으로 받아온 데이터를 return 한다.
+        '''applcation/json으로 받아온 데이터를 return 한다.
         ```
-        @returns
-        ```
-        '''
+        Returns:
+            Any: json 데이터
+        ```'''
         return request.get_json()
