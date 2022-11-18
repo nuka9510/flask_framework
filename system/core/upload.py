@@ -9,9 +9,9 @@ class Upload():
         Args:
             file (FileStorage): upload할 파일
             *allowed_extensions (str, optional): 허용할 확장자 ('jpg', 'gif', 'png', ...)
-            **options (str, optional):
+            **options (str):
                 upload_path (str): upload 경로
-                file_name (str): 파일 명
+                file_name (str, optional): 파일 명
 
         Returns:
             dict: 결과 값
