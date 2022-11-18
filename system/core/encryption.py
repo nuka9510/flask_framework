@@ -1,16 +1,16 @@
-from typing import Union, Optional
+from typing import Union
 from passlib.hash import bcrypt, sha256_crypt, sha512_crypt, md5_crypt, sha1_crypt
 from application.config import config
 
 class Encryption():
-    def __init__(self, schema: Optional[str] = 'sha256'):
+    def __init__(self, schema: str = 'sha256'):
         '''암호화 Class
         ```
         Example:
             Encryption(schema='sha256')
 
         Args:
-            schema (Optional[str]): 암호화 종류('bcrypt', 'sha256', 'sha512', 'md5', 'sha1'). Defaults to 'sha256'.
+            schema (str, optional): 암호화 종류('bcrypt', 'sha256', 'sha512', 'md5', 'sha1'). Defaults to 'sha256'.
         ```'''
         self.schema = schema
 
@@ -21,12 +21,12 @@ class Encryption():
             word (str): 암호화 할 문자열
             **options (Union[str, int, bool]): 암호화 옵션
                 schema (str): 암호화 종류. Defaults to self.schema.
-                salt (Optional[str]): salt 문자열. Defaults to config['ENCRYPTION_SALT'].
-                rounds (Optional[int]): rounds 수('md5'는 예외)
-                ident (Optional[str]): 'bcrypt'에서만 사용. Defaults to '2b'.
-                truncate_error (Optional[bool]): 'bcrypt'에서만 사용. Defaults to False.
-                relaxed (Optional[bool]): Defaults to False.
-                salt_size (int): ('md5', 'sha1')에서만 사용.Defaults to 8.
+                salt (str, optional): salt 문자열. Defaults to config['ENCRYPTION_SALT'].
+                rounds (int, optional): rounds 수('md5'는 예외)
+                ident (str, optional): 'bcrypt'에서만 사용. Defaults to '2b'.
+                truncate_error (bool, optional): 'bcrypt'에서만 사용. Defaults to False.
+                relaxed (bool, optional): Defaults to False.
+                salt_size (int, optional): ('md5', 'sha1')에서만 사용.Defaults to 8.
 
         Returns:
             str: 암화화 된 문자열
