@@ -118,7 +118,7 @@ class Model():
                 for val in self.cur.fetchone():
                     row.append(self.__convert(val))
             except TypeError:
-                ''''''
+                pass
         elif database['dbdriver'] == 'pyodbc':
             fetchone = self.cur.fetchone()
 
@@ -127,7 +127,7 @@ class Model():
                     column_names.append(j[0])
                     row.append(self.__convert(fetchone[i]))
             except AttributeError:
-                ''''''
+                pass
 
         return dict(zip(column_names, row))
 

@@ -49,9 +49,15 @@ class Input():
 
         if name:
             if action == 'append':
-                result = request.args.getlist(name, type)
+                result = request.args.getlist(name)
 
                 for i in range(len(result)):
+                    if type is not None:
+                        try:
+                            result[i] = type(result[i])
+                        except ValueError:
+                            result[i] = default
+
                     result[i] = self._convert(result[i], default, type, literal)
             elif action == 'store':
                 result = request.args.get(name, default, type)
@@ -78,9 +84,15 @@ class Input():
 
         if name:
             if action == 'append':
-                result = request.form.getlist(name, type)
+                result = request.form.getlist(name)
 
                 for i in range(len(result)):
+                    if type is not None:
+                        try:
+                            result[i] = type(result[i])
+                        except ValueError:
+                            result[i] = default
+
                     result[i] = self._convert(result[i], default, type, literal)
             elif action == 'store':
                 result = request.form.get(name, default, type)
