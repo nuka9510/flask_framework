@@ -1,4 +1,4 @@
-import mysql.connector, pyodbc, decimal, datetime, sys
+import mysql.connector, pyodbc, decimal, datetime
 from typing import Any, Union
 from application.config import database
 from system import logger
@@ -15,7 +15,7 @@ class Model():
             self.cur = self.con.cursor()
             self.__connected = True
         except (mysql.connector.Error, pyodbc.Error) as err:
-            logger.error(err, exc_info = sys.exc_info())
+            logger.error(err, exc_info = True)
             self.__connected = False
 
     def __convert(self, value: Any) -> Any:
@@ -67,7 +67,7 @@ class Model():
             if data:
                 logger.error(data)
 
-            logger.error(err, exc_info = sys.exc_info())
+            logger.error(err, exc_info = True)
             result = False
 
         return result
