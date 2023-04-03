@@ -15,7 +15,7 @@ class Model():
             self.cur = self.con.cursor()
             self.__connected = True
         except (mysql.connector.Error, pyodbc.Error) as err:
-            logger.error(err, exc_info = True)
+            logger.error(err)
             self.__connected = False
 
     def __convert(self, value: Any) -> Any:
@@ -67,7 +67,7 @@ class Model():
             if data:
                 logger.error(data)
 
-            logger.error(err, exc_info = True)
+            logger.error(err)
             result = False
 
         return result
