@@ -27,19 +27,19 @@
 
   @bp.get('/')
   def get():
-      return {'message': 'Example Page GET'}
+      return render_template('example.j2')
 
   @bp.post('/')
   def post():
-      return {'message': 'Example Page POST'}
+      return render_template('example.j2')
 
   @bp.put('/')
   def put():
-      return {'message': 'Example Page PUT'}
+      return render_template('example.j2')
 
   @bp.delete('/')
   def delete():
-      return {'message': 'Example Page DELETE'}
+      return render_template('example.j2')
   ```
 * application/controllers/\__init__.py
   ```
