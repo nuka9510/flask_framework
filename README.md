@@ -1,3 +1,5 @@
+# DB Connection SQLAlchemy로 변경 예정
+
 # flask_framework
 
 ## 사용 라이브러리 (*필수 설치)
